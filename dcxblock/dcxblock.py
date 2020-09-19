@@ -51,7 +51,7 @@ class DcXBlock(XBlock):
         """
         Create a fragment used to display the edit view in the Studio.
         """
-        html = self.resource_string("static/html/mystudio.html")
+        html = self.resource_string("static/html/dcstudio.html")
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code))
 
         return frag
