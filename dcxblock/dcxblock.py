@@ -53,7 +53,9 @@ class DcXBlock(XBlock):
         """
         html = self.resource_string("static/html/dcstudio.html")
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code))
-
+        frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
+        frag.initialize_js('DcXBlock')
+        
         return frag
 
     # TO-DO: change this handler to perform your own actions.  You may need more
