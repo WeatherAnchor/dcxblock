@@ -1,0 +1,9 @@
+/* CSS for DcXBlock */
+
+.dcxblock_block .count {
+    font-weight: bold;
+}
+
+.dcxblock_block p {
+    cursor: pointer;
+}
