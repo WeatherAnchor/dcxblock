@@ -33,7 +33,7 @@ function DcXBlock(runtime, element) {
             type: "POST",
             url: runtime.handlerUrl(element, 'studio_submit'),
             data: JSON.stringify(data),
-            success: function(response){
+            success:function(response){
                 runtime.notify('save', {state: 'end'});
             }
         });

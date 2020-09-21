@@ -27,7 +27,34 @@ class DcXBlock(XBlock):
 
     dc_grade = Integer(help="Maximum grade for the assignment", default=1, scope=Scope.content)
 
-    dc_code = String(help="Code for the exercise", default="<h1>This is code!</h1>", scope=Scope.content)
+    dc_default_code = """<code data-type="pre-exercise-code">
+                            # This will get executed each time the exercise gets initialized
+                            b = 6
+                        </code>
+                        <code data-type="sample-code">
+                            # Create a variable a, equal to 5
+
+
+                            # Print out a
+
+
+                        </code>
+                        <code data-type="solution">
+                            # Create a variable a, equal to 5
+                            a = 5
+
+                            # Print out a
+                            print(a)
+                        </code>
+                        <code data-type="sct">
+                            test_object("a")
+                            test_function("print")
+                            success_msg("Great job!")
+                        </code>
+                        <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>"""
+
+    dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
+
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -51,11 +78,13 @@ class DcXBlock(XBlock):
         """
         Create a fragment used to display the edit view in the Studio.
         """
-        html = self.resource_string("static/html/dcstudio.html")
+        html = self.resource_string("static/html/studio.html")
+
+    
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code))
-        frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
+        frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
         frag.initialize_js('DcXBlock')
-        
+
         return frag
 
     # TO-DO: change this handler to perform your own actions.  You may need more
