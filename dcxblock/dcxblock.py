@@ -32,7 +32,7 @@ class DcXBlock(XBlock):
                             b = 6
                         </code>
                         <code data-type="sample-code">
-                            # Create a variable a, equal to 5
+                            # Create a variable a, equal to 3
 
 
                             # Print out a
@@ -40,8 +40,8 @@ class DcXBlock(XBlock):
 
                         </code>
                         <code data-type="solution">
-                            # Create a variable a, equal to 5
-                            a = 5
+                            # Create a variable a, equal to 3
+                            a = 3
 
                             # Print out a
                             print(a)
@@ -53,7 +53,8 @@ class DcXBlock(XBlock):
                         </code>
                         <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>"""
 
-    dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
+    # dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
+    dc_code = dc_default_code
 
 
     def resource_string(self, path):
