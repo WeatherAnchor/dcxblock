@@ -3,7 +3,7 @@
       <li class="field comp-setting-entry is-set">
         <div class="wrapper-comp-setting">
           <label class="label setting-label" for="dc_cdn">Datacamp CDN</label>
-          <input class="input setting-input" name="dc_cdn" id="dc_cdn" value="{dc_cdn}" type="text" />
+          <input class="input setting-input" name="dc_cdn" id="dc_cdn" value="{self.dc_cdn}" type="text" />
         </div>
         <span class="tip setting-help">Example: http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz</span>
       </li>
@@ -12,7 +12,7 @@
       <li class="field comp-setting-entry is-set">
         <div class="wrapper-comp-setting">
           <label class="label setting-label" for="dc_grade">Maximum grade</label>
-          <input class="input setting-input" name="dc_grade" id="dc_grade" value="{dc_grade}" type="text" />
+          <input class="input setting-input" name="dc_grade" id="dc_grade" value="{self.dc_grade}" type="text" />
         </div>
         <span class="tip setting-help">Maximum grade for the exercise</span>
       </li>
@@ -22,7 +22,7 @@
         <div class="wrapper-comp-setting">
           <label class="label setting-label" for="dc_code">Exercise code block</label>
           <!-- <input class="input setting-input" name="dc_code" id="dc_code" value="{dc_code}" type="text" /> -->
-          <textarea  class="input setting-input" id="dc_textarea" name="dc_code" rows="4" cols="50" value={dc_code}></textarea>
+          <textarea  class="input setting-input" id="dc_textarea" name="self.dc_code" rows="4" cols="50" value={dc_code}></textarea>
         </div>
         <span class="tip setting-help">Every code blocks inside</span>
       </li>
