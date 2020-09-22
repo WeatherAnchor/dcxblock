@@ -4,7 +4,9 @@ import pkg_resources
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import Integer, Scope, String
-
+import json
+from django.utils.html import escape, conditional_escape
+import html
 
 class DcXBlock(XBlock):
     """
@@ -57,9 +59,16 @@ class DcXBlock(XBlock):
     lmao = "<h1>He tyerhe</h1>"
     my_quotes = """{0}"""
 
-    exp_tri = String(my_quotes.format(dc_default_code))
+    obj = {u"the_code": dc_default_code}
+    obj = conditional_escape(my_quotes.format(dc_default_code))
+    thejson = json.dumps(obj)
 
-    dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
+    # exp_tri = String(my_quotes.format(dc_default_code))
+    hha = thejson.encode('utf-8').decode('unicode_escape')
+
+    exp_tri = html.unescape(dc_default_code)
+
+    dc_code = String(help="Code for the exercise", default=html.unescape(dc_default_code), scope=Scope.content)
     
 
 
@@ -91,7 +100,7 @@ class DcXBlock(XBlock):
         my_quotes = """{0}"""
         current_code = my_quotes.format(self.dc_code)
 
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=current_code))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=html.unescape(self.dc_grade), dc_code=current_code))
 
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
@@ -139,7 +148,7 @@ class DcXBlock(XBlock):
         self.dc_cdn = data.get('dc_cdn')
         self.dc_grade = data.get('dc_grade')
         # self.dc_code = data.get('dc_code')
-        self.dc_code = current_code
+        self.dc_code = html.escape(data.get('dc_code'))
 
 
         return {'result': 'success'}
