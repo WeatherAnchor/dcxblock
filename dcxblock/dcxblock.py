@@ -66,7 +66,10 @@ class DcXBlock(XBlock):
     # exp_tri = String(my_quotes.format(dc_default_code))
     hha = thejson.encode('utf-8').decode('unicode_escape')
 
-    exp_tri = html.unescape(dc_default_code)
+    my_quotes = """{0}"""
+    current_code = my_quotes.format(dc_default_code)
+
+    exp_tri = html.unescape(current_code)
 
     dc_code = String(help="Code for the exercise", default=html.unescape(dc_default_code), scope=Scope.content)
     
@@ -100,7 +103,7 @@ class DcXBlock(XBlock):
         my_quotes = """{0}"""
         current_code = my_quotes.format(self.dc_code)
 
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=html.unescape(self.dc_grade), dc_code=current_code))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=html.escape(current_code)))
 
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
