@@ -53,8 +53,8 @@ class DcXBlock(XBlock):
                         </code>
                         <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>"""
 
-    # dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
-    dc_code = dc_default_code
+    dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
+    
 
 
     def resource_string(self, path):
@@ -146,3 +146,9 @@ class DcXBlock(XBlock):
                 </vertical_demo>
              """),
         ]
+
+
+
+
+
+

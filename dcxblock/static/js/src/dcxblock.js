@@ -43,6 +43,7 @@ function DcXBlock(runtime, element) {
         runtime.notify('cancel', {});
     });
 
+      
     window.onload = function () {
         console.log(DCL.instances)
 
