@@ -4,6 +4,7 @@ import pkg_resources
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import Integer, Scope, String
+from django.shortcuts import render
 
 
 class DcXBlock(XBlock):
@@ -52,6 +53,10 @@ class DcXBlock(XBlock):
                             success_msg("Great job!")
                         </code>
                         <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>"""
+    lmao = "<h1>He tyerhe</h1>"
+    my_quotes = """{0}"""
+
+    exp_tri = my_quotes.format(dc_default_code)
 
     dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
     
@@ -75,14 +80,19 @@ class DcXBlock(XBlock):
         frag.initialize_js('DcXBlock')
         return frag
 
+
+
     def studio_view(self, context):
         """
         Create a fragment used to display the edit view in the Studio.
         """
         html = self.resource_string("static/html/studio_dcxblock.html")
+        my_quotes = """{0}"""
+        current_code = my_quotes.format(self.dc_code)
 
-    
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=current_code))
+
+
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
         frag.initialize_js('DcXBlock')
 
