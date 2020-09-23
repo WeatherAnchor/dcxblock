@@ -56,6 +56,7 @@ class DcXBlock(XBlock):
                             success_msg("Great job!")
                         </code>
                         <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>"""
+
     lmao = "<h1>He tyerhe</h1>"
     my_quotes = """{0}"""
 
@@ -69,9 +70,9 @@ class DcXBlock(XBlock):
     my_quotes = """{0}"""
     current_code = my_quotes.format(dc_default_code)
 
-    exp_tri = html.unescape(current_code)
+    exp_tri = dc_default_code.encode()
 
-    dc_code = String(help="Code for the exercise", default=html.unescape(dc_default_code), scope=Scope.content)
+    dc_code = String(help="Code for the exercise", default=dc_default_code.encode(), scope=Scope.content)
     
 
 
@@ -87,7 +88,7 @@ class DcXBlock(XBlock):
         when viewing courses.
         """
         html = self.resource_string("static/html/dcxblock.html")
-        frag = Fragment(html.format(self=self))
+        frag = Fragment(html.format(self=self, something_else=self.dc_code.encode()))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
         frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
         frag.initialize_js('DcXBlock')
@@ -103,7 +104,7 @@ class DcXBlock(XBlock):
         my_quotes = """{0}"""
         current_code = my_quotes.format(self.dc_code)
 
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=current_code))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code.decode()))
 
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
@@ -150,7 +151,7 @@ class DcXBlock(XBlock):
 
         self.dc_cdn = data.get('dc_cdn')
         self.dc_grade = data.get('dc_grade')
-        self.dc_code = data.get('dc_code')
+        self.dc_code = data.get('dc_code').encode()
         # self.dc_code = html.escape(data.get('dc_code'))
 
 
