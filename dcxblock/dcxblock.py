@@ -7,6 +7,7 @@ from xblock.fields import Integer, Scope, String
 import json
 from django.utils.html import escape, conditional_escape
 import html
+import cgi
 
 class DcXBlock(XBlock):
     """
@@ -31,36 +32,37 @@ class DcXBlock(XBlock):
 
     dc_grade = Integer(help="Maximum grade for the assignment", default=1, scope=Scope.content)
 
-    dc_default_code = """<code data-type="pre-exercise-code">
-                            # This will get executed each time the exercise gets initialized
-                            b = 6
-                        </code>
-                        <code data-type="sample-code">
-                            # Create a variable a, equal to 3
+    dc_default_code = """
+    <code data-type="pre-exercise-code">
+        # This will get executed each time the exercise gets initialized
+        b = 6
+    </code>
+    <code data-type="sample-code">
+        # Create a variable a, equal to 3
 
 
-                            # Print out a
+        # Print out a
 
 
-                        </code>
-                        <code data-type="solution">
-                            # Create a variable a, equal to 3
-                            a = 3
+    </code>
+    <code data-type="solution">
+        # Create a variable a, equal to 3
+        a = 3
 
-                            # Print out a
-                            print(a)
-                        </code>
-                        <code data-type="sct">
-                            test_object("a")
-                            test_function("print")
-                            success_msg("Great job!")
-                        </code>
-                        <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>"""
+        # Print out a
+        print(a)
+    </code>
+    <code data-type="sct">
+        test_object("a")
+        test_function("print")
+        success_msg("Great job!")
+    </code>
+    <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div> """
 
     lmao = "<h1>He tyerhe</h1>"
     my_quotes = """{0}"""
 
-    obj = {u"the_code": dc_default_code}
+    obj = {u"THIS IS MY CODE OK!!!!!": dc_default_code}
     obj = conditional_escape(my_quotes.format(dc_default_code))
     thejson = json.dumps(obj)
 
@@ -70,11 +72,14 @@ class DcXBlock(XBlock):
     my_quotes = """{0}"""
     current_code = my_quotes.format(dc_default_code)
 
-    exp_tri = dc_default_code.encode()
-
-    dc_code = String(help="Code for the exercise", default=dc_default_code.encode(), scope=Scope.content)
     
 
+    dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
+    # exp_tri = thejson[0]
+    aasda = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
+    # peesda = html.escape(aasda)
+    
+    exp_tri = aasda
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -88,7 +93,7 @@ class DcXBlock(XBlock):
         when viewing courses.
         """
         html = self.resource_string("static/html/dcxblock.html")
-        frag = Fragment(html.format(self=self, something_else=self.dc_code.encode()))
+        frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
         frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
         frag.initialize_js('DcXBlock')
@@ -104,7 +109,7 @@ class DcXBlock(XBlock):
         my_quotes = """{0}"""
         current_code = my_quotes.format(self.dc_code)
 
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code.decode()))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code))
 
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
