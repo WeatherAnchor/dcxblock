@@ -103,7 +103,7 @@ class DcXBlock(XBlock):
         my_quotes = """{0}"""
         current_code = my_quotes.format(self.dc_code)
 
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=html.escape(current_code)))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=current_code))
 
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
@@ -150,8 +150,8 @@ class DcXBlock(XBlock):
 
         self.dc_cdn = data.get('dc_cdn')
         self.dc_grade = data.get('dc_grade')
-        # self.dc_code = data.get('dc_code')
-        self.dc_code = html.escape(data.get('dc_code'))
+        self.dc_code = data.get('dc_code')
+        # self.dc_code = html.escape(data.get('dc_code'))
 
 
         return {'result': 'success'}
