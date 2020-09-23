@@ -59,27 +59,9 @@ class DcXBlock(XBlock):
     </code>
     <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div> """
 
-    lmao = "<h1>He tyerhe</h1>"
-    my_quotes = """{0}"""
-
-    obj = {u"THIS IS MY CODE OK!!!!!": dc_default_code}
-    obj = conditional_escape(my_quotes.format(dc_default_code))
-    thejson = json.dumps(obj)
-
-    # exp_tri = String(my_quotes.format(dc_default_code))
-    hha = thejson.encode('utf-8').decode('unicode_escape')
-
-    my_quotes = """{0}"""
-    current_code = my_quotes.format(dc_default_code)
-
-    
 
     dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
-    # exp_tri = thejson[0]
-    aasda = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
-    # peesda = html.escape(aasda)
-    
-    exp_tri = aasda
+
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -100,17 +82,13 @@ class DcXBlock(XBlock):
         return frag
 
 
-
     def studio_view(self, context):
         """
         Create a fragment used to display the edit view in the Studio.
         """
         html = self.resource_string("static/html/studio_dcxblock.html")
-        my_quotes = """{0}"""
-        current_code = my_quotes.format(self.dc_code)
 
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code))
-
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
         frag.initialize_js('DcXBlock')
@@ -151,14 +129,10 @@ class DcXBlock(XBlock):
         """
         Called when submitting the form in Studio.
         """
-        my_quotes = """{0}"""
-        current_code = my_quotes.format(data.get('dc_code'))
 
         self.dc_cdn = data.get('dc_cdn')
         self.dc_grade = data.get('dc_grade')
-        self.dc_code = data.get('dc_code').encode()
-        # self.dc_code = html.escape(data.get('dc_code'))
-
+        self.dc_code = data.get('dc_code')
 
         return {'result': 'success'}
 
