@@ -27,6 +27,7 @@ class DcXBlock(XBlock):
     )
 
     grade = 0
+    student_grade = Integer(help="Student's grade for the assignment", default=0, scope=Scope.user_state)
 
     dc_cdn = String(help="URL of the datacamp's cdn", default="http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz", scope=Scope.content)
 
@@ -115,14 +116,14 @@ class DcXBlock(XBlock):
     @XBlock.json_handler
     def submit_dc_grade(self, data, suffix=""):
         if data['correct'] == True:
-            grade = 1
+            student_grade = 1
         else:
-            grade = 2
+            student_grade = 0
         
-        # event_data = {'value': grade, 'max_value': 20}
-        # self.runtime.publish(self, 'grade', event_data)
+        event_data = {'value': student_grade, 'max_value': self.dc_grade}
+        self.runtime.publish(self, 'grade', event_data)
 
-        return {"grade":grade}
+        return {"grade":student_grade}
 
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):
