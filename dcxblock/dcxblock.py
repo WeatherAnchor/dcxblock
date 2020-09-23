@@ -28,6 +28,12 @@ class DcXBlock(XBlock):
 
     grade = 0
     student_grade = Integer(help="Student's grade for the assignment", default=0, scope=Scope.user_state)
+    student_tries = Integer(help="Student's assignment tries", default=0, scope=Scope.user_state)
+    
+    
+
+    dc_student_tries = Integer(help="Number of student attempts allowed", default=3, scope=Scope.content)
+    
 
     dc_cdn = String(help="URL of the datacamp's cdn", default="http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz", scope=Scope.content)
 
@@ -89,7 +95,7 @@ class DcXBlock(XBlock):
         """
         html = self.resource_string("static/html/studio_dcxblock.html")
 
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code, dc_student_tries=self.dc_student_tries))
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
         frag.initialize_js('DcXBlock')
@@ -115,15 +121,27 @@ class DcXBlock(XBlock):
 
     @XBlock.json_handler
     def submit_dc_grade(self, data, suffix=""):
-        if data['correct'] == True:
-            student_grade = 1
-        else:
-            student_grade = 0
-        
-        event_data = {'value': student_grade, 'max_value': self.dc_grade}
-        self.runtime.publish(self, 'grade', event_data)
+        if self.student_tries < self.dc_student_tries:
+            if self.student_grade < self.dc_grade:
+                if data['correct'] == True:
+                    student_grade = 1
+                else:
+                    student_grade = 0
 
-        return {"grade":student_grade}
+                self.student_grade = student_grade
+                self.student_tries += 1
+
+                event_data = {'value': student_grade, 'max_value': self.dc_grade}
+                self.runtime.publish(self, 'grade', event_data)
+                
+                return {"n_tried":self.student_tries, "total_tries":self.dc_student_tries}
+            else:
+                self.student_tries += 1
+                return {"n_tried":self.student_tries, "total_tries":self.dc_student_tries}
+                
+        else:
+            self.n_attempts_left = 0
+            return {"n_tried": self.student_tries, "total_tries":self.dc_student_tries}
 
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):

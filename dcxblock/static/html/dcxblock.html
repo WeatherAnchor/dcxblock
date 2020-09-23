@@ -5,11 +5,18 @@
 </div>
 
 <p id="weather-exp">Lab grade:
-	<span class="weather-submit">{self.grade}</span>
+	<span class="weather-submit">{self.student_grade}</span>
 </p>
 
 
-<script type="text/javascript" src="http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz"></script>
+
+
+
+<script type="text/javascript" src={self.dc_cdn}></script>
+<div>
+	<h3>Attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h3>
+	<div id="attempts_block"></div>
+</div>
 <div id="my_test_1" data-datacamp-exercise data-lang="python" data-show-run-button>
 	{self.dc_code}
     <!-- 
@@ -41,3 +48,4 @@
 		Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.
 	</div> -->
 </div>
+
