@@ -175,9 +175,3 @@ class DcXBlock(XBlock):
                 </vertical_demo>
              """),
         ]
-
-
-
-
-
-

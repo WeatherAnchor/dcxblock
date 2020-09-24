@@ -32,8 +32,16 @@ function DcXBlock(runtime, element) {
       
     window.onload = function () {
         // console.log(DCL.instances);
-        dc_id = $(".my_dcxblock").attr("id");
+        // dc_id = $(".my_dcxblock").attr("id");
+        
+        o = DCL.instances;
+        var idx = 0; 
 
+        var key = Object.keys(o)[idx];
+        value = o[key]
+
+        dc_id = key
+        
         DCL.instances[dc_id].on("feedback", function(payload) {
             $.ajax({
                 type: "POST",
