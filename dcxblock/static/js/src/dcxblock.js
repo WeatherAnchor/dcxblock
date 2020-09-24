@@ -1,6 +1,31 @@
 /* Javascript for DcXBlock. */
 function DcXBlock(runtime, element) {
+    $('.seq_other', element).click(function(eventObject){
+        var dc_api = document.createElement('script');  
+        dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
+        document.head.appendChild(dc_api);
+        initAddedDCLightExercises();
+        
+        o = DCL.instances;
+        console.log("This is DCL log", o);
+        var idx = 0; 
 
+        var key = Object.keys(o)[idx];
+        value = o[key]
+
+        dc_id = key
+        
+        DCL.instances[dc_id].on("feedback", function(payload) {
+            $.ajax({
+                type: "POST",
+                url: submitHandleUrl,
+                data: JSON.stringify(payload),
+                success: submitDatacampGrade
+            });
+        });
+
+    });
+    
     function updateCount(result) {
         $('.count', element).text(result.count);
     }
@@ -31,7 +56,7 @@ function DcXBlock(runtime, element) {
 
       
     window.onload = function () {
-        // console.log(DCL.instances);
+        console.log("this is da instance",DCL.instances);
         // dc_id = $(".my_dcxblock").attr("id");
         
         o = DCL.instances;
@@ -50,5 +75,8 @@ function DcXBlock(runtime, element) {
                 success: submitDatacampGrade
             });
         });
+
     }
+
+
 }
