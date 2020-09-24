@@ -7,3 +7,6 @@
 .dcxblock_block p {
     cursor: pointer;
 }
+[data-datacamp-exercise] {
+  visibility: hidden;
+}

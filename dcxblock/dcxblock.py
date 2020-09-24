@@ -16,7 +16,7 @@ class DcXBlock(XBlock):
     has_score = True
 
 
-
+    
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
 
@@ -34,6 +34,7 @@ class DcXBlock(XBlock):
 
     dc_student_tries = Integer(help="Number of student attempts allowed", default=3, scope=Scope.content)
     
+    dc_id = String(help="Unique id for each dc IDE", default="dc_id_1", scope=Scope.content)
 
     dc_cdn = String(help="URL of the datacamp's cdn", default="http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz", scope=Scope.content)
 
@@ -81,6 +82,7 @@ class DcXBlock(XBlock):
         The primary view of the DcXBlock, shown to students
         when viewing courses.
         """
+        
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
@@ -95,7 +97,7 @@ class DcXBlock(XBlock):
         """
         html = self.resource_string("static/html/studio_dcxblock.html")
 
-        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code, dc_student_tries=self.dc_student_tries))
+        frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code, dc_student_tries=self.dc_student_tries, dc_id=self.dc_id))
 
         frag.add_javascript(self.resource_string("static/js/src/studio_dcxblock.js"))
         frag.initialize_js('DcXBlock')
@@ -152,6 +154,7 @@ class DcXBlock(XBlock):
         self.dc_cdn = data.get('dc_cdn')
         self.dc_grade = data.get('dc_grade')
         self.dc_code = data.get('dc_code')
+        self.dc_id = data.get('dc_id')
 
         return {'result': 'success'}
 

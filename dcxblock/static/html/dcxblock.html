@@ -13,11 +13,12 @@
 
 
 <script type="text/javascript" src={self.dc_cdn}></script>
+
 <div>
 	<h3>Attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h3>
 	<div id="attempts_block"></div>
 </div>
-<div id="my_test_1" data-datacamp-exercise data-lang="python" data-show-run-button>
+<div id="{self.dc_id}" class="my_dcxblock" data-datacamp-exercise data-lang="python" data-show-run-button data-no-lazy-loading>
 	{self.dc_code}
     <!-- 
 	<code data-type="pre-exercise-code">

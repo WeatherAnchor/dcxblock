@@ -24,15 +24,17 @@ function DcXBlock(runtime, element) {
         if(result.n_tried < result.total_tries){
             $("#student_attempts", element).text(result.n_tried);
         } else {
-            $("#attempts_block", element).html('<p style="background-color:#ffbfbf;">You have 0 attempt remaining! Your grade will not change if you submit!</p>')
+            $("#student_attempts", element).text(result.n_tried);
+            $("#attempts_block", element).html('<p style="background-color:#ffbfbf;">You have 0 attempt remaining! Your grade will not change if you submit!</p>');
         }
     }
 
       
     window.onload = function () {
-        console.log(DCL.instances)
+        // console.log(DCL.instances);
+        dc_id = $(".my_dcxblock").attr("id");
 
-        DCL.instances["my_test_1"].on("feedback", function(payload) {
+        DCL.instances[dc_id].on("feedback", function(payload) {
             $.ajax({
                 type: "POST",
                 url: submitHandleUrl,
@@ -40,6 +42,5 @@ function DcXBlock(runtime, element) {
                 success: submitDatacampGrade
             });
         });
-    
-    ;}
+    }
 }
