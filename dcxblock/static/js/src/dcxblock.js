@@ -53,7 +53,7 @@ function DcXBlock(runtime, element) {
             $("#attempts_block", element).html('<p style="background-color:#ffbfbf;">You have 0 attempt remaining! Your grade will not change if you submit!</p>');
         }
     }
-
+    initAddedDCLightExercises();
     var dc_api = document.createElement('script');  
     dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
     document.head.appendChild(dc_api);
@@ -97,6 +97,7 @@ function DcXBlock(runtime, element) {
             });
         });
     }
+    
 
 
 }
