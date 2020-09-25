@@ -1,30 +1,29 @@
 /* Javascript for DcXBlock. */
 function DcXBlock(runtime, element) {
-    $('.seq_other', element).click(function(eventObject){
-        var dc_api = document.createElement('script');  
-        dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
-        document.head.appendChild(dc_api);
-        initAddedDCLightExercises();
+    // $('.seq_other', element).click(function(eventObject){
+        // var dc_api = document.createElement('script');  
+        // dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
+        // document.head.appendChild(dc_api);
+        // initAddedDCLightExercises();
         
-        o = DCL.instances;
-        console.log("This is DCL log", o);
-        var idx = 0; 
+    //     o = DCL.instances;
+    //     console.log("This is DCL log", o);
+    //     var idx = 0; 
 
-        var key = Object.keys(o)[idx];
-        value = o[key]
+    //     var key = Object.keys(o)[idx];
+    //     value = o[key]
 
-        dc_id = key
+    //     dc_id = key
         
-        DCL.instances[dc_id].on("feedback", function(payload) {
-            $.ajax({
-                type: "POST",
-                url: submitHandleUrl,
-                data: JSON.stringify(payload),
-                success: submitDatacampGrade
-            });
-        });
-
-    });
+    //     DCL.instances[dc_id].on("feedback", function(payload) {
+    //         $.ajax({
+    //             type: "POST",
+    //             url: submitHandleUrl,
+    //             data: JSON.stringify(payload),
+    //             success: submitDatacampGrade
+    //         });
+    //     });
+    // });
     
     function updateCount(result) {
         $('.count', element).text(result.count);
@@ -46,6 +45,7 @@ function DcXBlock(runtime, element) {
     function submitDatacampGrade(result) {
         // $('.weather-submit', element).text(result.student_grade);
         // $('#student_attempts', element).text(result.student_grade);
+        console.log("successfully ajax");
         if(result.n_tried < result.total_tries){
             $("#student_attempts", element).text(result.n_tried);
         } else {
@@ -54,29 +54,38 @@ function DcXBlock(runtime, element) {
         }
     }
 
-      
-    window.onload = function () {
-        console.log("this is da instance",DCL.instances);
-        // dc_id = $(".my_dcxblock").attr("id");
-        
-        o = DCL.instances;
-        var idx = 0; 
+    var dc_api = document.createElement('script');  
+        dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
+        document.head.appendChild(dc_api);
+        initAddedDCLightExercises();
+    console.log("Hey thgerem", DCL.instances)
+    my_object = DCL.instances;
+    var idx = 0; 
 
-        var key = Object.keys(o)[idx];
-        value = o[key]
+    var key = Object.keys(my_object)[idx];
+    value = my_object[key];
 
-        dc_id = key
-        
-        DCL.instances[dc_id].on("feedback", function(payload) {
-            $.ajax({
-                type: "POST",
-                url: submitHandleUrl,
-                data: JSON.stringify(payload),
-                success: submitDatacampGrade
-            });
+    dc_id = key;
+
+    console.dir("this is de key", dc_id);
+    DCL.instances[dc_id].on("feedback", function(payload) {
+        $.ajax({
+            type: "POST",
+            url: submitHandleUrl,
+            data: JSON.stringify(payload),
+            success: submitDatacampGrade
         });
-
-    }
-
+    });
+    // function my_function() {
+    //     DCL.instances[dc_id].on("start", function(payload) {
+    //         alert("START");
+    //         console.log("PAYLOAD START");
+    //         console.log(payload);
+    //         console.log("PAYLOAD END");
+    //     });
+    // }
+    // if (window.attachEvent) {window.attachEvent('onload', my_function);}
+    // else if (window.addEventListener) {window.addEventListener('load', my_function, false);}
+    // else {document.addEventListener('load', my_function, false);}
 
 }
