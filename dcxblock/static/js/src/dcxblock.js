@@ -57,7 +57,7 @@ function DcXBlock(runtime, element) {
     var dc_api = document.createElement('script');  
         dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
         document.head.appendChild(dc_api);
-        initAddedDCLightExercises();
+    initAddedDCLightExercises();
     console.log("Hey thgerem", DCL.instances)
     my_object = DCL.instances;
     var idx = 0; 
@@ -76,16 +76,11 @@ function DcXBlock(runtime, element) {
             success: submitDatacampGrade
         });
     });
-    // function my_function() {
-    //     DCL.instances[dc_id].on("start", function(payload) {
-    //         alert("START");
-    //         console.log("PAYLOAD START");
-    //         console.log(payload);
-    //         console.log("PAYLOAD END");
-    //     });
-    // }
-    // if (window.attachEvent) {window.attachEvent('onload', my_function);}
-    // else if (window.addEventListener) {window.addEventListener('load', my_function, false);}
-    // else {document.addEventListener('load', my_function, false);}
+    function my_function() {
+        initAddedDCLightExercises();
+    }
+    if (window.attachEvent) {window.attachEvent('onload', my_function);}
+    else if (window.addEventListener) {window.addEventListener('load', my_function, false);}
+    else {document.addEventListener('load', my_function, false);}
 
 }
