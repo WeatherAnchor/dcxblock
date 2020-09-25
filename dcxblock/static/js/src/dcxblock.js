@@ -76,11 +76,16 @@ function DcXBlock(runtime, element) {
             success: submitDatacampGrade
         });
     });
+    window.document.onload = function(e){ 
+        initAddedDCLightExercises(); 
+    }
     function my_function() {
         initAddedDCLightExercises();
     }
     if (window.attachEvent) {window.attachEvent('onload', my_function);}
     else if (window.addEventListener) {window.addEventListener('load', my_function, false);}
     else {document.addEventListener('load', my_function, false);}
+
+
 
 }
