@@ -29,48 +29,56 @@ function DcXBlock(runtime, element) {
             $("#attempts_block", element).html('<p style="background-color:#ffbfbf;">You have 0 attempt remaining! Your grade will not change if you submit!</p>');
         }
     }
+    
+    // var dc_api = document.createElement('script');  
+    // dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
+    // document.head.appendChild(dc_api);
+    // // initAddedDCLightExercises();
+    // console.log("Hey thgerem", DCL.instances)
+    // my_object = DCL.instances;
+    // var idx = 0; 
 
-    var dc_api = document.createElement('script');  
-    dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
-    document.head.appendChild(dc_api);
-    initAddedDCLightExercises();
-    console.log("Hey thgerem", DCL.instances)
-    my_object = DCL.instances;
-    var idx = 0; 
+    // var key = Object.keys(my_object)[idx];
+    // value = my_object[key];
 
-    var key = Object.keys(my_object)[idx];
-    value = my_object[key];
+    // dc_id = key;
 
-    dc_id = key;
+    // console.dir("this is de key", dc_id);
+    // DCL.instances["dc_id_1"].on("feedback", function(payload) {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: submitHandleUrl,
+    //         data: JSON.stringify(payload),
+    //         success: submitDatacampGrade
+    //     });
+    // });
 
-    console.dir("this is de key", dc_id);
-    DCL.instances["dc_id_1"].on("feedback", function(payload) {
-        $.ajax({
-            type: "POST",
-            url: submitHandleUrl,
-            data: JSON.stringify(payload),
-            success: submitDatacampGrade
+
+    $(window).on('load', function() { 
+        console.log("added loaded");
+        var dc_api = document.createElement('script');  
+        dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
+        document.head.appendChild(dc_api);
+        initAddedDCLightExercises();
+        my_object = DCL.instances;
+        var idx = 0; 
+    
+        var key = Object.keys(my_object)[idx];
+        value = my_object[key];
+    
+        dc_id = key;
+
+        console.dir("this is de key", dc_id);
+        DCL.instances[dc_id].on("feedback", function(payload) {
+            console.log("the dom start")
+            $.ajax({
+                type: "POST",
+                url: submitHandleUrl,
+                data: JSON.stringify(payload),
+                success: submitDatacampGrade
+            });
         });
     });
-
-
-    // $(window).on('load', function() { 
-    //     console.log("added loaded");
-    //     var dc_api = document.createElement('script');  
-    //     dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
-    //     document.head.appendChild(dc_api);
-    //     initAddedDCLightExercises();
-    //     // console.dir("this is de key", dc_id);
-    //     // DCL.instances[dc_id].on("feedback", function(payload) {
-    //     //     console.log("the dom start")
-    //     //     $.ajax({
-    //     //         type: "POST",
-    //     //         url: submitHandleUrl,
-    //     //         data: JSON.stringify(payload),
-    //     //         success: submitDatacampGrade
-    //     //     });
-    //     // });
-    // });
     
 
 }
