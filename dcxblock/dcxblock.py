@@ -88,6 +88,7 @@ class DcXBlock(XBlock):
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
         frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
         frag.initialize_js('DcXBlock')
+
         return frag
 
 
