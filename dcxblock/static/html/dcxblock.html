@@ -1,13 +1,14 @@
 <script  type="text/javascript" src={self.dc_cdn}></script>
 
 <div class="dc_xblock_header">
-	<div id="" class="dc_xblock_header_el" style="border-radius: 10px 0 0 0;"><h4>Your grade for the practice:
-		<span class="">{self.student_grade}/{self.dc_grade}</span></h4>
+	<div class="dc_xblock_header_el" style="border-radius: 0 10px 0 0;">
+		<h4 style="color:white">Your attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h4>
+		<div id="attempts_block" style="background-color: #ffbfbf;"></div>
 	</div>
 
-	<div class="dc_xblock_header_el" style="border-radius: 0 10px 0 0;">
-		<h4>Your attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h4>
-		<div id="attempts_block" style="background-color: #ffbfbf;"></div>
+	<div id="" class="dc_xblock_header_el" style="border-radius: 10px 0 0 0;">
+		<h4 style="color:white">Your grade for the practice:
+		<span class="">{self.student_grade}/{self.dc_grade}</span></h4>
 	</div>
 
 	<button id="dc_practice_loader">Load your practice!</button>

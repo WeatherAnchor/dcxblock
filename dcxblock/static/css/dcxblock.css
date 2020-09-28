@@ -9,6 +9,10 @@
   display: grid;
   background: #7ecce2;
   color: white;
+  padding: 24px;
+}
+.dc_xblock_header_el h4{
+  color: white;
 }
 #dc_practice_loader{
   background: #fdc551;
