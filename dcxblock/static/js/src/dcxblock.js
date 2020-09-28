@@ -1,22 +1,6 @@
 /* Javascript for DcXBlock. */
 function DcXBlock(runtime, element) {
 
-    function updateCount(result) {
-        $('.count', element).text(result.count);
-    }
-
-    // var handlerUrl = runtime.handlerUrl(element, 'increment_count');
-
-    // $('p', element).click(function(eventObject) {
-    //     $.ajax({
-    //         type: "POST",
-    //         url: handlerUrl,
-    //         data: JSON.stringify({"hello": "world"}),
-    //         success: updateCount
-    //     });
-    // });
-
-
     // Datacamp submits the grade if correct
     var submitHandleUrl = runtime.handlerUrl(element, 'submit_dc_grade');
     function submitDatacampGrade(result) {
@@ -27,31 +11,25 @@ function DcXBlock(runtime, element) {
             $("#student_attempts", element).text(result.n_tried);
         } else {
             $("#student_attempts", element).text(result.n_tried);
-            $("#attempts_block", element).html('<p style="background-color:#ffbfbf;">You have 0 attempt remaining! Your grade will not change if you submit!</p>');
+            $("#attempts_block", element).css({"background-color":"#ffbfbf", "border-radis":"8px", "padding":"2px 5px"});
+            $("#attempts_block", element).text('You have 0 attempt remaining! Your grade will not change if you submit!');
         }
     }
-    
-    // var dc_api = document.createElement('script');  
-    // dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
-    // document.head.appendChild(dc_api);
 
-    $('#exp_loader').click(function(){
+    $('#dc_practice_loader').click(function(){
         console.log("loader clicker");
-        // $.getScript("http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz");
-        // initAddedDCLightExercises();
-        // var dc_api = document.createElement('script');  
-        // dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
-        
-        // $(this).append(dc_api);
-        heythere();
+
+        $('.dc_loader').toggleClass('show_block');
+        setTimeout(function(){ 
+            $('.dc_loader').toggleClass('show_block');
+            $('.my_dcxblock').toggleClass('show_block'); 
+            initDcIde();
+        }, 2000);
+        $(this).addClass('hide_block');
 
     });
-
-    // $.getScript("http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz");
-    // initAddedDCLightExercises();
     
-    function heythere(){
-        
+    function initDcIde(){
         // initAddedDCLightExercises();
         console.log("Hey thgerem", DCL.instances)
         my_object = DCL.instances;
@@ -72,37 +50,6 @@ function DcXBlock(runtime, element) {
             });
         });
     }
-
-    
-
-
-
-    // $(window).on('load', function() { 
-    //     console.log("added loaded");
-    //     var dc_api = document.createElement('script');  
-    //     dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
-    //     document.head.appendChild(dc_api);
-    //     initAddedDCLightExercises();
-    //     my_object = DCL.instances;
-    //     var idx = 0; 
-    
-    //     var key = Object.keys(my_object)[idx];
-    //     value = my_object[key];
-    
-    //     dc_id = key;
-
-    //     console.dir("this is de key", dc_id);
-    //     DCL.instances[dc_id].on("feedback", function(payload) {
-    //         console.log("the dom start")
-    //         $.ajax({
-    //             type: "POST",
-    //             url: submitHandleUrl,
-    //             data: JSON.stringify(payload),
-    //             success: submitDatacampGrade
-    //         });
-    //     });
-    // });
-    
 
 }
 

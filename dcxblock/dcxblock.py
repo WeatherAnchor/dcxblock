@@ -30,8 +30,6 @@ class DcXBlock(XBlock):
     student_grade = Integer(help="Student's grade for the assignment", default=0, scope=Scope.user_state)
     student_tries = Integer(help="Student's assignment tries", default=0, scope=Scope.user_state)
     
-    
-
     dc_student_tries = Integer(help="Number of student attempts allowed", default=3, scope=Scope.content)
     
     dc_id = String(help="Unique id for each dc IDE", default="dc_id_1", scope=Scope.content)

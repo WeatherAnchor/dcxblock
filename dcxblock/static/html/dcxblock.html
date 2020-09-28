@@ -1,25 +1,21 @@
-<div class="dcxblock_block">
-	<p>DcXBlock: count is now
-		<span class='count'>{self.count}</span> (click me to increment).
-	</p>
+<script  type="text/javascript" src={self.dc_cdn}></script>
+
+<div class="dc_xblock_header">
+	<div id="" class="dc_xblock_header_el" style="border-radius: 10px 0 0 0;"><h4>Your grade for the practice:
+		<span class="">{self.student_grade}/{self.dc_grade}</span></h4>
+	</div>
+
+	<div class="dc_xblock_header_el" style="border-radius: 0 10px 0 0;">
+		<h4>Your attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h4>
+		<div id="attempts_block" style="background-color: #ffbfbf;"></div>
+	</div>
+
+	<button id="dc_practice_loader">Load your practice!</button>
+
 </div>
 
-<p id="weather-exp">Lab grade:
-	<span class="weather-submit">{self.student_grade}</span>
-</p>
+<div class="dc_loader hide_block"></div>
 
-<div id="exp_loader">Loader</div>
-<div id="exp_script"></div>
-
-<script  type="text/javascript" src={self.dc_cdn}>
-
-</script>
-
-<div>
-	<h3>Attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h3>
-	<div id="attempts_block"></div>
-</div>
-
-<div id="{self.dc_id}" class="my_dcxblock" data-datacamp-exercise data-lang="python" data-show-run-button data-no-lazy-loading>
+<div id="{self.dc_id}" class="my_dcxblock hide_block" data-datacamp-exercise data-lang="python" data-show-run-button data-no-lazy-loading>
 	{self.dc_code}
 </div>
