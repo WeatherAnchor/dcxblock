@@ -96,6 +96,8 @@ class DcXBlock(XBlock):
         """
         Create a fragment used to display the edit view in the Studio.
         """
+
+        
         html = self.resource_string("static/html/studio_dcxblock.html")
 
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code, dc_student_tries=self.dc_student_tries, dc_id=self.dc_id))
@@ -145,6 +147,17 @@ class DcXBlock(XBlock):
         else:
             self.n_attempts_left = 0
             return {"n_tried": self.student_tries, "total_tries":self.dc_student_tries}
+
+    @XBlock.json_handler
+    def switch_exp(self, data, suffix=""):
+        html = self.resource_string("static/html/experiment.html")
+        frag = Fragment(html.format(self=self))
+        frag.add_css(self.resource_string("static/css/dcxblock.css"))
+        frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
+        frag.initialize_js('DcXBlock')
+
+        return frag
+
 
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):

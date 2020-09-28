@@ -5,16 +5,17 @@ function DcXBlock(runtime, element) {
         $('.count', element).text(result.count);
     }
 
-    var handlerUrl = runtime.handlerUrl(element, 'increment_count');
+    // var handlerUrl = runtime.handlerUrl(element, 'increment_count');
 
-    $('p', element).click(function(eventObject) {
-        $.ajax({
-            type: "POST",
-            url: handlerUrl,
-            data: JSON.stringify({"hello": "world"}),
-            success: updateCount
-        });
-    });
+    // $('p', element).click(function(eventObject) {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: handlerUrl,
+    //         data: JSON.stringify({"hello": "world"}),
+    //         success: updateCount
+    //     });
+    // });
+
 
     // Datacamp submits the grade if correct
     var submitHandleUrl = runtime.handlerUrl(element, 'submit_dc_grade');
@@ -29,13 +30,29 @@ function DcXBlock(runtime, element) {
             $("#attempts_block", element).html('<p style="background-color:#ffbfbf;">You have 0 attempt remaining! Your grade will not change if you submit!</p>');
         }
     }
-    // $.getScript("http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz");
+    
     // var dc_api = document.createElement('script');  
     // dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
     // document.head.appendChild(dc_api);
-    heythere();
+
+    $('#exp_loader').click(function(){
+        console.log("loader clicker");
+        // $.getScript("http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz");
+        // initAddedDCLightExercises();
+        // var dc_api = document.createElement('script');  
+        // dc_api.setAttribute('src','http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz');
+        
+        // $(this).append(dc_api);
+        heythere();
+
+    });
+
+    // $.getScript("http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz");
+    // initAddedDCLightExercises();
+    
     function heythere(){
-        initAddedDCLightExercises();
+        
+        // initAddedDCLightExercises();
         console.log("Hey thgerem", DCL.instances)
         my_object = DCL.instances;
         var idx = 0; 
@@ -55,6 +72,8 @@ function DcXBlock(runtime, element) {
             });
         });
     }
+
+    
 
 
 
