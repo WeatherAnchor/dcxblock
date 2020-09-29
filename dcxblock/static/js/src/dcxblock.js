@@ -4,18 +4,19 @@ function DcXBlock(runtime, element) {
     // Datacamp submits the grade if correct
     var submitHandleUrl = runtime.handlerUrl(element, 'submit_dc_grade');
     function submitDatacampGrade(result) {
-        // $('.weather-submit', element).text(result.student_grade);
-        // $('#student_attempts', element).text(result.student_grade);
-        console.log("successfully ajax");
+        console.log("successfull ajax");
         if(result.n_tried < result.total_tries){
             $("#student_attempts", element).text(result.n_tried);
-            $("#student_attempts", element ).effect( "bounce", "slow" );
+            $("#student_attempts", element ).effect( "highlight", {color:"#669966"}, 3000 );
         } else {
             $("#student_attempts", element).text(result.n_tried);
-            $("#student_attempts", element ).effect( "bounce", "slow" );
-            $("#attempts_block", element).css({"background-color":"#ffbfbf", "border-radis":"8px", "padding":"2px 5px"});
+            $("#attempts_block", element).css({"background-color":"#ffbfbf", "border-radius":"8px", "padding":"2px 5px"});
             $("#attempts_block", element).text('You have 0 attempt remaining! Your grade will not change if you submit!');
-            $("#attempts_block", element ).effect( "bounce", "slow" );
+            $("#attempts_block", element ).effect( "shake", {times:4}, 500 );
+        }
+        if(result.student_grade === 1){
+            $('#student_grade').text("1");
+            $('#student_grade').effect( "highlight", {color:"#669966"}, 3000 );
         }
     }
 
@@ -26,9 +27,11 @@ function DcXBlock(runtime, element) {
         
         setTimeout(function(){ 
             $('.dc_loader').toggleClass('show_block');
-            $('.my_dcxblock').toggleClass('show_block'); 
+            // $('.dc_xblock_header_el').toggleClass('show_block'); 
+            $('.my_dcxblock').slideToggle('slow'); 
+
             initDcIde();
-        }, 1500);
+        }, 1200);
         
         $(this).addClass('hide_block');
 
@@ -36,7 +39,7 @@ function DcXBlock(runtime, element) {
     
     function initDcIde(){
         // initAddedDCLightExercises();
-        console.log("Hey thgerem", DCL.instances)
+        console.log("DCL instances:", DCL.instances)
         my_object = DCL.instances;
         var idx = 0; 
     

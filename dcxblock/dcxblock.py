@@ -34,7 +34,7 @@ class DcXBlock(XBlock):
     
     dc_id = String(help="Unique id for each dc IDE", default="dc_id_1", scope=Scope.content)
 
-    dc_cdn = String(help="URL of the datacamp's cdn", default="http://cdn.datacamp.com/dcl/latest/dcl-react.js.gz", scope=Scope.content)
+    dc_cdn = String(help="URL of the datacamp's cdn", default="//cdn.datacamp.com/dcl/latest/dcl-react.js.gz", scope=Scope.content)
 
     dc_grade = Integer(help="Maximum grade for the assignment", default=1, scope=Scope.content)
 
@@ -137,14 +137,14 @@ class DcXBlock(XBlock):
                 event_data = {'value': student_grade, 'max_value': self.dc_grade}
                 self.runtime.publish(self, 'grade', event_data)
                 
-                return {"n_tried":self.student_tries, "total_tries":self.dc_student_tries}
+                return {"n_tried":self.student_tries, "total_tries":self.dc_student_tries, "student_grade":self.student_grade}
             else:
                 self.student_tries += 1
-                return {"n_tried":self.student_tries, "total_tries":self.dc_student_tries}
+                return {"n_tried":self.student_tries, "total_tries":self.dc_student_tries,"student_grade":self.student_grade}
                 
         else:
             self.n_attempts_left = 0
-            return {"n_tried": self.student_tries, "total_tries":self.dc_student_tries}
+            return {"n_tried": self.student_tries, "total_tries":self.dc_student_tries,"student_grade":self.student_grade}
 
     @XBlock.json_handler
     def switch_exp(self, data, suffix=""):
