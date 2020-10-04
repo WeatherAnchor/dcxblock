@@ -14,6 +14,7 @@ class DcXBlock(XBlock):
     TO-DO: document what your XBlock does.
     """
     has_score = True
+    icon_class = problem
 
 
     
