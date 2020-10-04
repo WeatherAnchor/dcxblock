@@ -14,19 +14,12 @@ class DcXBlock(XBlock):
     TO-DO: document what your XBlock does.
     """
     has_score = True
-
+    icon_class = "problem"
 
     
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
 
-    # TO-DO: delete count, and define your own fields.
-    count = Integer(
-        default=0, scope=Scope.user_state,
-        help="A simple counter, to show something happening",
-    )
-
-    grade = 0
     student_grade = Integer(help="Student's grade for the assignment", default=0, scope=Scope.user_state)
     student_tries = Integer(help="Student's assignment tries", default=0, scope=Scope.user_state)
     
@@ -107,20 +100,6 @@ class DcXBlock(XBlock):
 
     # TO-DO: change this handler to perform your own actions.  You may need more
     # than one handler, or you may not need any handlers at all.
-    @XBlock.json_handler
-    def increment_count(self, data, suffix=''):
-        """
-        An example handler, which increments the data.
-        """
-        # Just to show data coming in...
-        assert data['hello'] == 'world'
-
-        self.count += 1
-
-        event_data = {'value': 8, 'max_value': 16}
-        self.runtime.publish(self, 'grade', event_data)
-
-        return {"count": self.count}
 
     @XBlock.json_handler
     def submit_dc_grade(self, data, suffix=""):
