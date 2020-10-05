@@ -39,7 +39,7 @@ function DcXBlock(runtime, element) {
     
     function initDcIde(){
         // initAddedDCLightExercises();
-        console.log("DCL instances:", DCL.instances)
+        // console.log("DCL instances:", DCL.instances);
         my_object = DCL.instances;
         var idx = 0; 
     
@@ -48,7 +48,7 @@ function DcXBlock(runtime, element) {
     
         dc_id = key;
     
-        console.dir("this is de key", dc_id);
+        // console.dir("this is de key", dc_id);
         DCL.instances[dc_id].on("feedback", function(payload) {
             $.ajax({
                 type: "POST",

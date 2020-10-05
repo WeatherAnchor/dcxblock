@@ -5,11 +5,9 @@ from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import Integer, Scope, String
 import json
-from django.utils.html import escape, conditional_escape
-import html
-import cgi
+from xblock.scorable import ScorableXBlockMixin, Score
 
-class DcXBlock(XBlock):
+class DcXBlock(XBlock, ScorableXBlockMixin):
     """
     TO-DO: document what your XBlock does.
     """
@@ -73,7 +71,6 @@ class DcXBlock(XBlock):
         The primary view of the DcXBlock, shown to students
         when viewing courses.
         """
-        
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
@@ -124,16 +121,6 @@ class DcXBlock(XBlock):
         else:
             self.n_attempts_left = 0
             return {"n_tried": self.student_tries, "total_tries":self.dc_student_tries,"student_grade":self.student_grade}
-
-    @XBlock.json_handler
-    def switch_exp(self, data, suffix=""):
-        html = self.resource_string("static/html/experiment.html")
-        frag = Fragment(html.format(self=self))
-        frag.add_css(self.resource_string("static/css/dcxblock.css"))
-        frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
-        frag.initialize_js('DcXBlock')
-
-        return frag
 
 
     @XBlock.json_handler
