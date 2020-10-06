@@ -3,10 +3,11 @@
 import pkg_resources
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
+from xblock.scorable import ScorableXBlockMixin
 from xblock.fields import Integer, Scope, String
 import json
-from xblock.scorable import ScorableXBlockMixin, Score
 
+has_score = True
 class DcXBlock(XBlock, ScorableXBlockMixin):
     """
     TO-DO: document what your XBlock does.
@@ -58,7 +59,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
 
 
     dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
-
+    
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -71,6 +72,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         The primary view of the DcXBlock, shown to students
         when viewing courses.
         """
+        has_score = True
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
@@ -84,8 +86,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         """
         Create a fragment used to display the edit view in the Studio.
         """
-
-        
+        has_score = True
         html = self.resource_string("static/html/studio_dcxblock.html")
 
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code, dc_student_tries=self.dc_student_tries, dc_id=self.dc_id))
