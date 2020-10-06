@@ -22,12 +22,11 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
     
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
-    display_name = String(
+    display_name = String(  
         display_name="Title",
         help="The title is displayed to learners.",
         scope=Scope.content,
-        default="Python exercise",
-        enforce_type=True,
+        default="Data camp IDE"
     )
 
     student_grade = Integer(help="Student's grade for the assignment", default=0, scope=Scope.user_state)
@@ -72,7 +71,8 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
     dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
     dc_max_grade_set = Boolean(help="helper to initialize max grade", default= False, scope=Scope.content)
 
-    XBlock.has_score = True
+    # XBlock.has_score = True
+    has_score = Boolean(scope=Scope.settings, default=True)
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -129,6 +129,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
 
     @XBlock.json_handler
     def submit_dc_grade(self, data, suffix=""):
+        
         if self.student_tries < self.dc_student_tries:
             if self.student_grade < self.dc_grade:
                 if data['correct'] == True:
@@ -162,7 +163,8 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         self.dc_grade = data.get('dc_grade')
         self.dc_code = data.get('dc_code')
         self.dc_id = data.get('dc_id')
-        self.is_grade_set(self)
+        self.display_name = data.get('display_name')
+        # self.is_grade_set(self)
         return {'result': 'success'}
 
     # TO-DO: change this to create the scenarios you'd like to see in the
