@@ -12,12 +12,23 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
     """
     TO-DO: document what your XBlock does.
     """
-    # has_score = True
-    icon_class = "problem"
     
+    icon_class = String(
+        help="Controls the icon that displays to learners in the unit navigation bar on the Course page when the XBlock is in that unit.",
+        default="problem",
+        values="problem",
+        display_name="Icon Class"
+    )
     
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
+    display_name = String(
+        display_name="Title",
+        help="The title is displayed to learners.",
+        scope=Scope.content,
+        default="Python exercise",
+        enforce_type=True,
+    )
 
     student_grade = Integer(help="Student's grade for the assignment", default=0, scope=Scope.user_state)
     student_tries = Integer(help="Student's assignment tries", default=0, scope=Scope.user_state)
@@ -61,6 +72,8 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
     dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
     dc_max_grade_set = Boolean(help="helper to initialize max grade", default= False, scope=Scope.content)
 
+    XBlock.has_score = True
+
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
@@ -77,8 +90,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
             return "scorable"
         else:
             return "fuck no"
-       
-    
+
     
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
@@ -87,7 +99,6 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         when viewing courses.
         """
         # self.has_score = True
-        # scb = ScorableXBlockMixin.has_submitted_answer(self)
         my_exp = "hha"
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self, my_exp = my_exp))
