@@ -3,7 +3,7 @@
 import pkg_resources
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
-from xblock.scorable import ScorableXBlockMixin
+from xblock.scorable import ScorableXBlockMixin, Score
 from xblock.fields import Integer, Scope, String, Boolean
 import json
 
@@ -72,6 +72,12 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
             self.runtime.publish(self, 'grade', event_data)
             self.dc_max_grade_set == True
     
+    def helo(self):
+        if self.get_score == True:
+            return "scorable"
+        else:
+            return "fuck no"
+       
     
     
     # TO-DO: change this view to display your data your own way.
@@ -81,8 +87,9 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         when viewing courses.
         """
         self.has_score = True
+        my_exp = ScorableXBlockMixin.get_score(self)
         html = self.resource_string("static/html/dcxblock.html")
-        frag = Fragment(html.format(self=self))
+        frag = Fragment(html.format(self=self, my_exp = my_exp))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
         frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
         frag.initialize_js('DcXBlock')
@@ -95,6 +102,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         Create a fragment used to display the edit view in the Studio.
         """
         self.has_score = True
+        
         html = self.resource_string("static/html/studio_dcxblock.html")
 
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code, dc_student_tries=self.dc_student_tries, dc_id=self.dc_id))
