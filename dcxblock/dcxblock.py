@@ -4,11 +4,12 @@ import pkg_resources
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.scorable import ScorableXBlockMixin, Score
-from xblock.fields import Integer, Scope, String, Boolean
+from xblock.fields import Integer, Scope, String, Boolean, Float
 import json
 
-
-class DcXBlock(XBlock, ScorableXBlockMixin):
+@XBlock.wants('settings')
+@XBlock.needs('i18n')
+class DcXBlock(ScorableXBlockMixin, XBlock):
     """
     TO-DO: document what your XBlock does.
     """
@@ -66,6 +67,8 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
 
     # XBlock.has_score = True
     has_score = Boolean(scope=Scope.settings, default=True)
+    raw_earned = Float(default=1.0)
+    raw_possible = Float(default=1.0)
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -84,7 +87,6 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         else:
             return "fuck no"
 
-    
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
         """
@@ -92,7 +94,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         when viewing courses.
         """
         # self.has_score = True
-        my_exp = "hha"
+        my_exp = "sda_ve"
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self, my_exp = my_exp))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
