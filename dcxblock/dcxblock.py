@@ -71,8 +71,6 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
             event_data = {'value': 0, 'max_value': self.dc_grade}
             self.runtime.publish(self, 'grade', event_data)
             self.dc_max_grade_set == True
-        else:
-            pass
     
     
     
@@ -146,7 +144,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         self.dc_grade = data.get('dc_grade')
         self.dc_code = data.get('dc_code')
         self.dc_id = data.get('dc_id')
-
+        self.is_grade_set(self)
         return {'result': 'success'}
 
     # TO-DO: change this to create the scenarios you'd like to see in the
