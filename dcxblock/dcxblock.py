@@ -4,7 +4,7 @@ import pkg_resources
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.scorable import ScorableXBlockMixin
-from xblock.fields import Integer, Scope, String
+from xblock.fields import Integer, Scope, String, Boolean
 import json
 
 has_score = True
@@ -59,20 +59,31 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
 
 
     dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
-    
+    dc_max_grade_set = Boolean(help="helper to initialize max grade", default= False, scope=Scope.content)
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
 
+    def is_grade_set(self, context=None):
+        if self.dc_max_grade_set == False:
+            event_data = {'value': 0, 'max_value': self.dc_grade}
+            self.runtime.publish(self, 'grade', event_data)
+            self.dc_max_grade_set == True
+        else:
+            pass
+    
+    
+    
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
         """
         The primary view of the DcXBlock, shown to students
         when viewing courses.
         """
-        has_score = True
+        self.is_grade_set(self)
+        self.has_score = True
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
@@ -86,7 +97,8 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         """
         Create a fragment used to display the edit view in the Studio.
         """
-        has_score = True
+        self.is_grade_set(self)
+        self.has_score = True
         html = self.resource_string("static/html/studio_dcxblock.html")
 
         frag = Fragment(html.format(dc_cdn=self.dc_cdn, dc_grade=self.dc_grade, dc_code=self.dc_code, dc_student_tries=self.dc_student_tries, dc_id=self.dc_id))

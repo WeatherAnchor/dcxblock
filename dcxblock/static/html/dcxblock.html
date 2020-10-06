@@ -2,23 +2,25 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js">
 </script>
 
-<div class="dc_xblock_header">
-	<div class="dc_xblock_header_el" style="border-radius: 10px 0 0 0;">
-		<h4 style="color:white">Your attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h4>
-		<div id="attempts_block" style="background-color: #ffbfbf;"></div>
+<div class="problem">
+	<div class="dc_xblock_header">
+		<div class="dc_xblock_header_el" style="border-radius: 10px 0 0 0;">
+			<h4 style="color:white">Your attempts: <span id="student_attempts">{self.student_tries}</span>/<span id="total_attempts">{self.dc_student_tries}</span></h4>
+			<div id="attempts_block" style="background-color: #ffbfbf;"></div>
+		</div>
+
+		<div id="" class="dc_xblock_header_el" style="border-radius: 0 10px 0 0;">
+			<h4 style="color:white">Your grade for the practice:
+			<span id="student_grade">{self.student_grade}</span>/<span id="dc_student_grade">{self.dc_grade}</span></h4>
+		</div>
+
+		<button id="dc_practice_loader">Load your practice!</button>
+
 	</div>
 
-	<div id="" class="dc_xblock_header_el" style="border-radius: 0 10px 0 0;">
-		<h4 style="color:white">Your grade for the practice:
-		<span id="student_grade">{self.student_grade}</span>/<span id="dc_student_grade">{self.dc_grade}</span></h4>
+	<div class="dc_loader hide_block"></div>
+
+	<div id="{self.dc_id}" class="my_dcxblock hide_block" data-datacamp-exercise data-lang="python" data-show-run-button data-no-lazy-loading>
+		{self.dc_code}
 	</div>
-
-	<button id="dc_practice_loader">Load your practice!</button>
-
-</div>
-
-<div class="dc_loader hide_block"></div>
-
-<div id="{self.dc_id}" class="my_dcxblock hide_block" data-datacamp-exercise data-lang="python" data-show-run-button data-no-lazy-loading>
-	{self.dc_code}
 </div>
