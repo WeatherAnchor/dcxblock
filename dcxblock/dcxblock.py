@@ -7,14 +7,14 @@ from xblock.scorable import ScorableXBlockMixin, Score
 from xblock.fields import Integer, Scope, String, Boolean
 import json
 
-has_score = True
+
 class DcXBlock(XBlock, ScorableXBlockMixin):
     """
     TO-DO: document what your XBlock does.
     """
-    has_score = True
+    # has_score = True
     icon_class = "problem"
-
+    
     
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
@@ -86,8 +86,9 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         The primary view of the DcXBlock, shown to students
         when viewing courses.
         """
-        self.has_score = True
-        my_exp = ScorableXBlockMixin.get_score(self)
+        # self.has_score = True
+        # scb = ScorableXBlockMixin.has_submitted_answer(self)
+        my_exp = "hha"
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self, my_exp = my_exp))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
@@ -101,7 +102,7 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         """
         Create a fragment used to display the edit view in the Studio.
         """
-        self.has_score = True
+        # self.has_score = True
         
         html = self.resource_string("static/html/studio_dcxblock.html")
 
