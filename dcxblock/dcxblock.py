@@ -80,7 +80,6 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         The primary view of the DcXBlock, shown to students
         when viewing courses.
         """
-        self.is_grade_set(self)
         self.has_score = True
         html = self.resource_string("static/html/dcxblock.html")
         frag = Fragment(html.format(self=self))
@@ -95,7 +94,6 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         """
         Create a fragment used to display the edit view in the Studio.
         """
-        self.is_grade_set(self)
         self.has_score = True
         html = self.resource_string("static/html/studio_dcxblock.html")
 
