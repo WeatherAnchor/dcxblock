@@ -22,13 +22,6 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
     
     # Fields are defined on the class.  You can access them in your code as
     # self.<fieldname>.
-    display_name = String(  
-        display_name="Title",
-        help="The title is displayed to learners.",
-        scope=Scope.content,
-        default="Data camp IDE"
-    )
-
     student_grade = Integer(help="Student's grade for the assignment", default=0, scope=Scope.user_state)
     student_tries = Integer(help="Student's assignment tries", default=0, scope=Scope.user_state)
     
@@ -163,7 +156,6 @@ class DcXBlock(XBlock, ScorableXBlockMixin):
         self.dc_grade = data.get('dc_grade')
         self.dc_code = data.get('dc_code')
         self.dc_id = data.get('dc_id')
-        self.display_name = data.get('display_name')
         # self.is_grade_set(self)
         return {'result': 'success'}
 

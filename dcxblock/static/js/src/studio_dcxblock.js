@@ -6,9 +6,7 @@ function DcXBlock(runtime, element) {
             dc_cdn: $(element).find('input[name=dc_cdn]').val(),
             dc_grade: $(element).find('input[name=dc_grade]').val(),
             dc_code: $("#dc_code").val(),
-            dc_id: $("#dc_id").val(),
-            display_name: $("#display_name").val()
-
+            dc_id: $("#dc_id").val()
         };
         runtime.notify('save', {state: 'start'});
         $.ajax({

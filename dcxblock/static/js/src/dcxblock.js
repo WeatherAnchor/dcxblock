@@ -4,7 +4,7 @@ function DcXBlock(runtime, element) {
     // Datacamp submits the grade if correct
     var submitHandleUrl = runtime.handlerUrl(element, 'submit_dc_grade');
     function submitDatacampGrade(result) {
-        console.log("successfull ajax");
+        // console.log("successfull ajax");
         if(result.n_tried < result.total_tries){
             $("#student_attempts", element).text(result.n_tried);
             $("#student_attempts", element ).effect( "highlight", {color:"#669966"}, 3000 );
@@ -21,7 +21,7 @@ function DcXBlock(runtime, element) {
     }
 
     $('#dc_practice_loader').click(function(){
-        console.log("loader clicker");
+        // console.log("loader clicker");
 
         $('.dc_loader').toggleClass('show_block');
         
