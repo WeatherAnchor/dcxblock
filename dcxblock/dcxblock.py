@@ -66,7 +66,15 @@ class DcXBlock(ScorableXBlockMixin, XBlock):
     dc_max_grade_set = Boolean(help="helper to initialize max grade", default= False, scope=Scope.content)
 
     # XBlock.has_score = True
-    has_score = Boolean(scope=Scope.settings, default=True)
+    # has_score = Boolean(scope=Scope.settings, default=True)
+    has_score = Boolean(
+        display_name=("Scored"),
+        help=(
+            "Select False if this component will not receive a numerical score from the Scorm"
+        ),
+        default=True,
+        scope=Scope.settings,
+    )
     raw_earned = Float(default=1.0)
     raw_possible = Float(default=1.0)
 
