@@ -104,7 +104,7 @@ class DcXBlock(ScorableXBlockMixin, XBlock):
         # self.has_score = True
         my_exp = "sda_ve"
         html = self.resource_string("static/html/dcxblock.html")
-        frag = Fragment(html.format(self=self, my_exp = my_exp))
+        frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
         frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
         frag.initialize_js('DcXBlock')
