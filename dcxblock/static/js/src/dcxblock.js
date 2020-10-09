@@ -28,7 +28,7 @@ function DcXBlock(runtime, element) {
         setTimeout(function(){ 
             $('.dc_loader').toggleClass('show_block');
             // $('.dc_xblock_header_el').toggleClass('show_block'); 
-            $('.my_dcxblock').slideToggle('slow'); 
+            // $('.my_dcxblock').slideToggle('slow'); 
 
             initDcIde();
         }, 1200);

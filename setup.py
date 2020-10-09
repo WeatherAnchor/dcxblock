@@ -32,7 +32,7 @@ setup(
         'dcxblock',
     ],
     install_requires=[
-        'XBlock==1.2.6',
+        'XBlock',
     ],
     entry_points={
         'xblock.v1': [

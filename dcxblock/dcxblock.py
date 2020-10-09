@@ -5,10 +5,12 @@ from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.scorable import ScorableXBlockMixin, Score
 from xblock.fields import Integer, Scope, String, Boolean, Float
+
 import json
 
 @XBlock.wants('settings')
 @XBlock.needs('i18n')
+@XBlock.wants('user')
 class DcXBlock(ScorableXBlockMixin, XBlock):
     """
     TO-DO: document what your XBlock does.
@@ -63,7 +65,7 @@ class DcXBlock(ScorableXBlockMixin, XBlock):
 
 
     dc_code = String(help="Code for the exercise", default=dc_default_code, scope=Scope.content)
-    dc_max_grade_set = Boolean(help="helper to initialize max grade", default= False, scope=Scope.content)
+    dc_max_grade_set = String(help="someshit", default="no", scope=Scope.settings)
 
     # XBlock.has_score = True
     # has_score = Boolean(scope=Scope.settings, default=True)
@@ -83,17 +85,12 @@ class DcXBlock(ScorableXBlockMixin, XBlock):
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
 
-    def is_grade_set(self, context=None):
-        if self.dc_max_grade_set == False:
+    def is_grade_set(self, sth):
+        if sth == "no":
+            self.dc_max_grade_set = "yes"
             event_data = {'value': 0, 'max_value': self.dc_grade}
             self.runtime.publish(self, 'grade', event_data)
-            self.dc_max_grade_set == True
     
-    def helo(self):
-        if self.get_score == True:
-            return "scorable"
-        else:
-            return "fuck no"
 
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
@@ -102,9 +99,12 @@ class DcXBlock(ScorableXBlockMixin, XBlock):
         when viewing courses.
         """
         # self.has_score = True
-        my_exp = "sda_ve"
+        user_service = self.runtime.service(self, 'user')
+        xb_user = user_service.get_current_user()
+        # my_exp = xb_user.full_name
+        my_exp = "hha"
         html = self.resource_string("static/html/dcxblock.html")
-        frag = Fragment(html.format(self=self))
+        frag = Fragment(html.format(self=self, my_exp=my_exp))
         frag.add_css(self.resource_string("static/css/dcxblock.css"))
         frag.add_javascript(self.resource_string("static/js/src/dcxblock.js"))
         frag.initialize_js('DcXBlock')
@@ -161,7 +161,7 @@ class DcXBlock(ScorableXBlockMixin, XBlock):
         """
         Called when submitting the form in Studio.
         """
-
+        self.is_grade_set(self.dc_max_grade_set)
         self.dc_cdn = data.get('dc_cdn')
         self.dc_grade = data.get('dc_grade')
         self.dc_code = data.get('dc_code')
